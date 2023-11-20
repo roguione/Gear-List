@@ -1,11 +1,12 @@
 // models/gear.js
 const mongoose = require('mongoose');
 
-const gearSchema = new mongoose.Schema({
-  name: String,
-  category: String,
+const Schema = mongoose.Schema;
+
+const gearSchema = new Schema({
+  name: { type: String, required: true },
+  category: { type: String, required: true },
 });
 
-const Gear = mongoose.model('Gear', gearSchema);
+module.exports = mongoose.model('Gear', gearSchema);
 
-module.exports = Gear;

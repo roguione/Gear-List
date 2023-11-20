@@ -1,4 +1,4 @@
-<!-- views/index.ejs -->
+<!-- views/show.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +8,9 @@
 </head>
 <body>
   <h1><%= title %></h1>
-  <ul>
-    <% gearList.forEach(function(gear) { %>
-      <li><a href="/gear/<%= gear._id %>"><%= gear.name %></a></li>
-    <% }); %>
-  </ul>
-  <a href="/gear/create">Create New Gear</a>
+  <h2>Gear Details</h2>
+  <p><strong>Name:</strong> <%= gear.name %></p>
+  <p><strong>Category:</strong> <%= gear.category %></p>
+  <a href="/">Back to Gear List</a>
 </body>
 </html>
