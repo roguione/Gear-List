@@ -1,18 +1,27 @@
-<!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
+  <title>Gear List</title>
 </head>
 <body>
-  <h1><%= title %></h1>
+  <%- include('partials/header') %> 
+
+  <h1>Gear List</h1>
+  <h2>Categories</h2>
+  <ul>
+    <li><a href="/gear/category/clothing">Clothing</a></li>
+    <li><a href="/gear/category/cargo">Cargo</a></li>
+    <li><a href="/gear/category/shelter">Shelter</a></li>
+  </ul>
+
+  <!-- Display the list of gear items -->
+  <h2>Gear Items</h2>
   <ul>
     <% gearList.forEach(function(gear) { %>
-      <li><a href="/gear/<%= gear._id %>"><%= gear.name %></a></li>
+      <li><a href="/gear/<%= gear._id %>"><%= gear.name %> - <%= gear.category %></a></li>
     <% }); %>
   </ul>
-  <a href="/gear/create">Create New Gear</a>
 </body>
 </html>

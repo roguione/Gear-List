@@ -1,5 +1,5 @@
 // models/gear.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -8,5 +8,4 @@ const gearSchema = new Schema({
   category: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Gear', gearSchema);
-
+module.exports = mongoose.model("Gear", gearSchema);

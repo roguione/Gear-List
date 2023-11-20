@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ... (head content) ... -->
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <h1>Gear List</h1>
+  <h2>Categories</h2>
+  <ul>
+    <% categories.forEach(function(category) { %>
+      <li><a href="/gear/category/<%= category %>"><%= category %></a></li>
+    <% }); %>
+  </ul>
+
+  <h2>Gear Items</h2>
+  <ul>
+    <% gearList.forEach(function(gear) { %>
+      <li><a href="/gear/<%= gear._id %>"><%= gear.name %> - <%= gear.category %></a></li>
+    <% }); %>
+  </ul>
+</body>
+</html>

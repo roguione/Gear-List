@@ -1,14 +1,10 @@
+// Gear-List/gserver.js
 require('dotenv').config();
 
-// gserver.js
 const express = require('express');
-const path = require('path');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const path = require('path');
 const gearRouter = require('./routes/gear');
-
-// Load environment variables from .env file
-dotenv.config();
 
 const app = express();
 
@@ -16,27 +12,40 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URL, {
+// Middleware for parsing POST request bodies
+app.use(express.urlencoded({ extended: true }));
+
+// Connect to MongoDB using environment variable
+const { MONGODB_URL, PORT } = process.env;
+mongoose.connect(MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-const db = mongoose.connection;
 
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Middleware for parsing POST request bodies
-app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; font-src 'self' data:;"
+  );
+  next();
+});
 
 // Routes
 app.use('/', gearRouter);
 
-// Start the server
-const port = process.env.PORT || 3000;
+const port = PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
+
+// 404 route handler
+app.use((req, res) => {
+  res.status(404).render('404', { title: 'Page Not Found' });
 });
 

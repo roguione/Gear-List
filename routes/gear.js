@@ -3,17 +3,19 @@ const express = require('express');
 const router = express.Router();
 const gearController = require('../controllers/gearController');
 
-// GET request for creating a gear item. This must come before routes that display gear item (uses id).
-router.get('/gear/create', gearController.gear_create_get);
+// Route to serve the home page
+router.get('/', gearController.home_page);
 
-// POST request for creating gear item.
+// POST request to create a new gear item
 router.post('/gear/create', gearController.gear_create_post);
 
-// GET request for one gear item.
-router.get('/gear/:id', gearController.gear_detail);
+// GET request for listing gear items by category
+router.get('/gear/category/:category', gearController.gear_list_by_category);
 
-// GET request for list of all gear items.
+// Route for deleting a gear list
+router.delete('/gear/delete/:id', gearController.gear_delete);
+
+// GET request for listing all gear items
 router.get('/gear', gearController.gear_list);
 
 module.exports = router;
-
